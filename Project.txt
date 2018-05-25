@@ -1,0 +1,49 @@
+Banco (MongoDB)
+	- Criar Modelagem NOSQL
+	- Configurar MongoDB
+	- Criar "tabelas"
+
+Back (Node.js):
+	- Criar Projeto Node.js
+	- Criar Serviços:
+		- Auth
+		- Relatorio
+		- Rastreio
+		- Objeto
+		- Remetente
+		- Destinatário
+		- Mensageria
+	- Configurar Redis
+	- Configurar RabbitMQ
+	- Métodos default (helper) CRUD
+	- Configurar Swagger
+	- 
+
+Front - Painel:
+	- Criar Protótipo
+	- Criar Projeto
+	- Telas de cadastro
+		- Objeto
+		- Destinatário
+		- Remetente
+		- Usuario
+			- Perfil
+	- Tela de Historico
+
+Front - Rastreio:
+	- Criar protótipo
+	- Rastreio Obj
+	- Recebimento mensageria (rabbitMQ)
+
+
+Mobile - Terminal:
+	- Criar prototipo
+	- Criar Projeto
+	- Telas
+		- Registrar // Cria obj, ou pega obj já cadastrado.
+		- Assinar //Módulo opicional de assinatura de recebimento
+	
+Mobile - Rastreio:
+	- Cadastra-se
+	- Cadastrar objeto
+	- Recebimento mensageria (rabbitMQ)
