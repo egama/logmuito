@@ -1,18 +1,35 @@
 const express = require('express');
-const UserLogin = require('../models/auth');
+const authBusiness = require('../business/authBusiness');
 
 const router = express.Router();
 
-router.post('/login', (req, resp) => {
+router.post('/register', async (req, resp) => {
     try {
-        var ul = new UserLogin();
-        ul.login = req.body.login;
-        ul.password = req.body.senha;
-        return resp.send(ul);
+        var pro = new authBusiness();
+        var response = await pro.register(req);
+        return resp.send(response);
     }
     catch (err) {
         return resp.status(400).send(err);
     }
 });
 
-module.exports = (app) => app.use('/auth', router);
+router.post('/authenticate', (req, resp) => {
+    try {
+        return resp.send('OK');
+    }
+    catch (err) {
+        return resp.status(400).send(err);
+    }
+});
+
+router.post('/update', (req, resp) => {
+    try {
+        return resp.send('OK2');
+    }
+    catch (err) {
+        return resp.status(400).send(err);
+    }
+});
+
+module.exports = (app) => app.use('/account', router);

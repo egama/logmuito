@@ -1,0 +1,9 @@
+{
+    "auth": {
+        "secret" : "3188692E92336DE375EEBC8CD4282AF4E501E03426CDD32818FD2C607D18062B",
+        "timeSecundsDuration": 86400
+    },
+    "mongoAccess":{
+        "connectionString": "mongodb://localhost/logmuito"
+    }
+}

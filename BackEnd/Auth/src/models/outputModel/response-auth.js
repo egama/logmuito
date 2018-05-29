@@ -1,10 +1,8 @@
-const express = require('express');
-
-class UserLogin {
+class ResponseAuth {
     constructor() {
         this.login = '';
         this.password = '';
     }
 }
 
-module.exports = UserLogin;
+module.exports = ResponseAuth;
