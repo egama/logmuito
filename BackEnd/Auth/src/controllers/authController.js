@@ -14,9 +14,11 @@ router.post('/register', async (req, resp) => {
     }
 });
 
-router.post('/authenticate', (req, resp) => {
+router.post('/authenticate', async (req, resp) => {
     try {
-        return resp.send('OK');
+        var pro = new authBusiness();
+        var response = await pro.authenticate(req);
+        return resp.send(response);
     }
     catch (err) {
         return resp.status(400).send(err);

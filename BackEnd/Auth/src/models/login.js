@@ -9,7 +9,8 @@ const UserSchema = mongoose.Schema({
         type: String,
         require: true,
         unique: true,
-        lowercase: true
+        lowercase: true,
+        test: "^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
     },
     password: {
         type: String,
