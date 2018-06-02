@@ -5,8 +5,6 @@ const router = express.Router();
 
 router.post('/register', async (req, resp) => {
     try {
-        debugger;
-
         var pro = new authBusiness();
         var response = await pro.register(req);
         return resp.send(response);

@@ -15,6 +15,7 @@
     "express": "^4.16.3",
     "guid": "0.0.12",
     "lot-validate": "^2.0.1",
-    "mongoose": "^5.1.2"
+    "mongoose": "^5.1.2",
+    "redis": "^2.8.0"
   }
 }

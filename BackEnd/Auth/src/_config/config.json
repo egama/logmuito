@@ -8,6 +8,9 @@
         "dbCompanies": "dbCompanies"
     },
     "redisAccess": {
-
+        "timeExpire": 10
+    },
+    "app": {
+        "port": 4000
     }
 }

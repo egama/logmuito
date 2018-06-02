@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const configApp = require('../../_config/config')
-
-//mongoose.connect("mongodb://localhost/logmuito");
+const configApp = require('../../_config/config');
 
 module.exports = (db) => {
     var connString = configApp.mongoAccess.host + db;

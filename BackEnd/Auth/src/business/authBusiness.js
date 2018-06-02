@@ -13,7 +13,6 @@ class AuthBusiness {
     async register(_req) {
         const { companyName, companyContact, address, users } = _req.body;
         var response = new DefaultResponse();
-        debugger;
 
         //First: Validate and Create User
         if (!response.hasError)
@@ -29,7 +28,7 @@ class AuthBusiness {
 
             if (!response.hasError) {
                 var comp = await Company.create({ companyName, companyContact });
-                
+
                 //Create user
                 await Promise.all(users.map(async u => {
                     u.company = comp._id;
@@ -37,19 +36,22 @@ class AuthBusiness {
                     comp.users.push(usr);
                 }));
 
-                
+
                 await Promise.all(address.map(async a => {
                     a.company = comp._id;
                     var cA = await CompanyAddress.create(a);
                     comp.address = (cA);
                 }));
-                
+
+                var len = comp.companyName.length < 8 ? comp.companyName.length : 8;
+                var ram = Math.floor(Math.random() * 1000);
+                var dbName = comp.companyName.split(' ').join('').substr(0, len) + ram.toString();
+                comp.NameToDb = dbName;
+
                 comp.save();
-                
+
                 response.success("Company created with success!", comp);
                 return response;
-
-
             }
         }
 

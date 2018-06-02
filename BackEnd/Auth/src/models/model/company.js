@@ -27,6 +27,9 @@ const CompanySchema = mongoose.Schema({
         require: true,
         default: Guid.raw()
     },
+    NameToDb: {
+        type: String
+    },
     createAt: {
         type: Date,
         default: Date.now
