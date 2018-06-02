@@ -1,7 +1,8 @@
-const mongoose = require("../database");
+const configApp = require('../../_config/config');
+const mongoose = require("../../database/mongo")(configApp.mongoAccess.dbCompanies);
 
 const UserSchema = mongoose.Schema({
-    username: {
+    userName: {
         type: String,
         require: true
     },
@@ -10,15 +11,19 @@ const UserSchema = mongoose.Schema({
         require: true,
         unique: true,
         lowercase: true,
-        test: "^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+        test: "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.[A-Za-z]{2,64}"
     },
     password: {
         type: String,
         require: true
     },
+    company: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        require: true
+    },
     createAt: {
         type: Date,
-        require: true,
         default: Date.Now
     }
 });

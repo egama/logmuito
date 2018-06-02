@@ -23,7 +23,7 @@ class SchemaValidate {
             if (_s_el.default != undefined && _s_el.default != null)
                 _vl = _s_el.default;
 
-            if (_s_el.required && (_vl == '' || _vl == undefined || _vl == null))
+            if (_s_el.require && (_vl == '' || _vl == undefined || _vl == null) && _s_el.type.name.toString().toLowerCase() != "objectid")
                 response.addErro(error_value_required, el);
 
             if (_s_el.minlength != undefined && _s_el.minlength != null && _s_el.minlength < _vl.length)
@@ -35,6 +35,23 @@ class SchemaValidate {
             if (_s_el.test != undefined && _s_el.test != null && _s_el.test != '' && !new RegExp(_s_el.test).test(_vl)) {
                 response.addErro(error_test_not_valid, el);
             }
+        });
+
+        return response;
+    }
+    
+    /**
+     * Method for Validation Schema of Array Obj
+     * @param {*} _schema Schema object to validate
+     * @param {*} _listObj Array Object with value for compare
+     */
+    static ValidateArray(_schema, _listObj) {
+        var response = new DefaultResponse();
+
+        _listObj.forEach(x => {
+            var any_response = this.Validate(_schema, x);
+            if (any_response.hasError)
+                response.addErroRange(any_response.errors);
         });
 
         return response;

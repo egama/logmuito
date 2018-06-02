@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.post('/register', async (req, resp) => {
     try {
+        debugger;
+
         var pro = new authBusiness();
         var response = await pro.register(req);
         return resp.send(response);
@@ -19,6 +21,15 @@ router.post('/authenticate', async (req, resp) => {
         var pro = new authBusiness();
         var response = await pro.authenticate(req);
         return resp.send(response);
+    }
+    catch (err) {
+        return resp.status(400).send(err);
+    }
+});
+
+router.post('/login', (req, resp) => {
+    try {
+        return resp.send('login');
     }
     catch (err) {
         return resp.status(400).send(err);
