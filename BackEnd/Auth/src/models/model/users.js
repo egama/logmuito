@@ -1,5 +1,6 @@
 const configApp = require('../../_config/config');
 const mongoose = require("../../database/mongo")(configApp.mongoAccess.dbCompanies);
+const bcrypt = require('bcryptjs');
 
 const UserSchema = mongoose.Schema({
     userName: {
@@ -15,7 +16,8 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        require: true
+        require: true,
+        select: false
     },
     company: {
         type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +28,13 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.Now
     }
+});
+
+UserSchema.pre('save', async function (next) {
+    debugger;
+    const hash = await bcrypt.hash(this.password, configApp.jwt.salt);
+    this.password = hash;
+    next();
 });
 
 const User = mongoose.model('User', UserSchema);

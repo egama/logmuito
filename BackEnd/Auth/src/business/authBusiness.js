@@ -1,6 +1,10 @@
 const User = require('../models/model/users');
 const Company = require('../models/model/company');
 const CompanyAddress = require('../models/model/companyAddress');
+const RedisHelper = require('../database/redis');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const configApp = require('../_config/config');
 
 const { DefaultResponse, ErrorsResponse, SchemaValidate } = require('lot-validate');
 
@@ -47,8 +51,11 @@ class AuthBusiness {
                 var ram = Math.floor(Math.random() * 1000);
                 var dbName = comp.companyName.split(' ').join('').substr(0, len) + ram.toString();
                 comp.NameToDb = dbName;
-
                 comp.save();
+
+                debugger;
+                var redisHelper = new RedisHelper();
+                redisHelper.setCache(comp.hash, comp.NameToDb);
 
                 response.success("Company created with success!", comp);
                 return response;
@@ -58,11 +65,34 @@ class AuthBusiness {
         return response;
     }
 
+    /**
+     * 
+     * @param {object} _req Request for try login (email and password)
+     * @returns {DefaultResponse} object default of response
+     */
     async authenticate(_req) {
-        var response = SchemaValidate.Validate(User, _req.body);
-        if (!response.hasError) {
-            var dataUser = await User.create(_req.body)
-            response.success("Salvo com sucesso!", dataUser);
+        // var redisHelper = new RedisHelper();
+        // return await redisHelper.getCache(hash);
+        var response = new DefaultResponse();
+        debugger;
+        const { email, password } = _req.body;
+
+        const UserModel = await User.findOne({ email }).select('+password').populate('company');
+
+        if (!UserModel)
+            response.addErro('User not exists');
+        else {
+            if (!await bcrypt.compare(password, UserModel.password))
+                response.addErro('Password not found');
+            else {
+                const token = jwt.sign({ id: UserModel._id }, configApp.jwt.secret);
+
+                var newObj = {
+                    hash: UserModel.company.hash,
+                    token: token
+                };
+                response.success("OK", newObj)
+            }
         }
         return response;
     }
