@@ -66,7 +66,7 @@ class AuthBusiness {
     }
 
     /**
-     * 
+     * Method to authenticate login
      * @param {object} _req Request for try login (email and password)
      * @returns {DefaultResponse} object default of response
      */
