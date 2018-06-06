@@ -25,22 +25,4 @@ router.post('/authenticate', async (req, resp) => {
     }
 });
 
-router.post('/login', (req, resp) => {
-    try {
-        return resp.send('login');
-    }
-    catch (err) {
-        return resp.status(400).send(err);
-    }
-});
-
-router.post('/update', (req, resp) => {
-    try {
-        return resp.send('OK2');
-    }
-    catch (err) {
-        return resp.status(400).send(err);
-    }
-});
-
 module.exports = (app) => app.use('/account', router);

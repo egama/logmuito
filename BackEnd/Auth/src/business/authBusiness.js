@@ -53,7 +53,6 @@ class AuthBusiness {
                 comp.NameToDb = dbName;
                 comp.save();
 
-                debugger;
                 var redisHelper = new RedisHelper();
                 redisHelper.setCache(comp.hash, comp.NameToDb);
 
@@ -71,10 +70,8 @@ class AuthBusiness {
      * @returns {DefaultResponse} object default of response
      */
     async authenticate(_req) {
-        // var redisHelper = new RedisHelper();
-        // return await redisHelper.getCache(hash);
         var response = new DefaultResponse();
-        debugger;
+        
         const { email, password } = _req.body;
 
         const UserModel = await User.findOne({ email }).select('+password').populate('company');
